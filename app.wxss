@@ -1,0 +1,17 @@
+/*横向布局  */
+.layout_horizontal{
+  display: flex;
+  /*row 横向 (默认) column 列表  */
+  /* flex-direction: row; */
+  align-items: center;
+  padding:20rpx 0rpx;
+}
+
+/*纵向布局  */
+.layout_vertical{
+  height: 100rpx;
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: column;
+}
+

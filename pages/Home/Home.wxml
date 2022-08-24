@@ -1,0 +1,85 @@
+<view class="page_box" catchtap="hindKeyboard">
+  <view style="{{'padding-top: '+statusBarHeight+'px'}}">
+    <view class="title">BMI计算器</view>
+  </view>
+  <view class="input_view" catchtap="hindKeyboard">
+
+    <view class="input_layout">
+      <view class="input_box" catchtap="showKeyboard" data-type="height">
+        <view class="content" wx:if="{{height.length}}">
+          <view wx:for="{{height}}" wx:key="index" data-str-index="{{index + 1}}" catchtap="getStrPosition">
+            <view class="number-block">{{item}}<view class="cursor cursor-insert" wx:if="{{cursorIndex === index + 1&&currentInputType==='height'}}"></view>
+            </view>
+          </view>
+        </view>
+        <view class="cursor" wx:if="{{!cursorIndex&&currentInputType==='height'}}"></view>
+        <text class="default-content" wx:if="{{!height.length}}">{{defaultHeight}}</text>
+      </view>
+      <text class="input_label">cm</text>
+    </view>
+
+    <view class="input_layout">
+      <view class="input_box" catchtap="showKeyboard" data-type="weight">
+        <view class="content" wx:if="{{weight.length}}">
+          <view wx:for="{{weight}}" wx:key="index" data-str-index="{{index + 1}}" catchtap="getStrPosition">
+            <view class="number-block">{{item}}<view class="cursor cursor-insert" wx:if="{{cursorIndex === index + 1&&currentInputType==='weight'}}"></view>
+            </view>
+          </view>
+        </view>
+        <view class="cursor" wx:if="{{!cursorIndex&&currentInputType==='weight'}}"></view>
+        <text class="default-content" wx:if="{{!weight.length}}">{{defaultWeight}}</text>
+      </view>
+      <text class="input_label">kg</text>
+    </view>
+
+    <view class="go_btn" catchtap="go" wx:if="{{height.length>0&&weight.length>0}}">
+      <image wx:if="{{bmiResult&&bmiResultType}}" animation="{{refreshAnimation}}" class="refresh_img" src="../../image/refresh.png" />
+      <image wx:else class="go_img" src="../../image/go.png" />
+    </view>
+  </view>
+  <view class="result_root" wx:if="{{isShowResult}}">
+    <view class="result_top">
+      <view class="result_item">
+        <text class="result_name">BMI</text>
+        <text class="result_value">{{bmiResult}}</text>
+      </view>
+      <view class="result_item">
+        <text class="result_name">身体状况</text>
+        <text class="result_value {{bmiResultIndex===0||bmiResultIndex===2?'text_yellow':(bmiResultIndex===1?'text_green':'text_red')}}">{{bmiResultType}}</text>
+      </view>
+    </view>
+  </view>
+  <!-- 键盘 -->
+  <view class="keyboard {{keyShow&&'hind_box'}}" catchtap="showKeyboard">
+    <view class="keys_row">
+      <view class="keys" catchtap="keyTap" data-keys="1">1</view>
+      <view class="keys" catchtap="keyTap" data-keys="2">2</view>
+      <view class="keys" catchtap="keyTap" data-keys="3">3</view>
+      <view class="keys" catchtap="keyTap" data-keys="-1" style="display: flex;justify-content: center;align-items: center;">
+        <image style="width: 30px;height:30px;" src="../../image/del.png" />
+      </view>
+    </view>
+    <view style="display: flex;flex-direction: row;">
+      <view style="display: flex;flex-direction: column;width: 563rpx;">
+        <view class="keys_row">
+          <view class="keys" catchtap="keyTap" data-keys="4">4</view>
+          <view class="keys" catchtap="keyTap" data-keys="5">5</view>
+          <view class="keys" catchtap="keyTap" data-keys="6">6</view>
+        </view>
+        <view class="keys_row">
+          <view class="keys" catchtap="keyTap" data-keys="7">7</view>
+          <view class="keys" catchtap="keyTap" data-keys="8">8</view>
+          <view class="keys" catchtap="keyTap" data-keys="9">9</view>
+        </view>
+        <view class="keys_row">
+          <view class="keys key_zero" catchtap="keyTap" data-keys="0">0</view>
+        </view>
+      </view>
+      <view class="keys_row">
+        <view class="keys key_confirm" catchtap="keyConfirm">{{currentInputType==="weight"&&height.length>0&&weight.length>0?"完成":"下一步"}}</view>
+      </view>
+    </view>
+
+  </view>
+
+</view>
